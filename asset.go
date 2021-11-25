@@ -259,7 +259,7 @@ func initAsset() {
 		},
 		{
 			Rules: []string{`raw ^任务通知$`},
-			Cron:  jd_cookie.Get("task_Notify", "2 7,13,19 * * *"),
+			Cron:  jd_cookie.Get("task_Notify", "2 8,12,18,22 * * *"),
 			Admin: true,
 			Handle: func(_ core.Sender) interface{} {
 				envs, _ := qinglong.GetEnvs("JD_COOKIE")
