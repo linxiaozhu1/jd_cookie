@@ -104,7 +104,7 @@ func initLogin() {
 				if tabcount != 0 {
 					hasNolan = true
 				}
-				if !hasNolan == true {
+				if !hasNolan == true || addr == "" {
 					// goto ADONG
 					return jd_cookie.Get("tip", "诺兰无法为您服务。")
 				}
