@@ -91,6 +91,11 @@ func initLogin() {
 					qq = s.GetUserID()
 				}
 
+				if addr == "" {
+					// goto ADONG
+					return jd_cookie.Get("tip", "诺兰无法为您服务。")
+				}
+
 				cancel := false
 				phone := ""
 				hasNolan := false
@@ -104,7 +109,7 @@ func initLogin() {
 				if tabcount != 0 {
 					hasNolan = true
 				}
-				if !hasNolan == true || addr == "" {
+				if !hasNolan == true {
 					// goto ADONG
 					return jd_cookie.Get("tip", "诺兰无法为您服务。")
 				}
