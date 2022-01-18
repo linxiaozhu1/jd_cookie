@@ -152,7 +152,7 @@ func initEnv() {
 				if err != nil {
 					return err
 				}
-				env.Status = s.Get(1)
+				env.Remarks = s.Get(1)
 				if err := qinglong.UdpEnv(qls[0], *env); err != nil {
 					return err
 				}
