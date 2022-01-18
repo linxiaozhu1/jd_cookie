@@ -73,33 +73,32 @@ func initRongQi() {
 					memvs[ql] = nn
 				}
 				//聚合
-				if len(aggregated) > 0 {
-					for _, aql := range aggregated {
-						toapp := []qinglong.Env{}
-						for ql, envs := range memvs {
-							toapp_ := []qinglong.Env{}
-							if ql == aql {
-								continue
-							}
-							for _, env := range envs {
-								if !envContain(append(memvs[aql], toapp...), env) {
-									toapp = append(toapp, env)
-									toapp_ = append(toapp_, env)
-								}
-							}
-							if len(toapp_) > 0 {
-								memvs[aql] = append(memvs[aql], toapp_...)
-								if err := qinglong.AddEnv(aql, toapp_...); err != nil {
-									s.Reply(fmt.Sprintf("失败转移%d个账号到聚合容器%s：%v%s", len(toapp_), aql.GetName(), err, ql.GetName()))
-								} else {
-									s.Reply(fmt.Sprintf("成功转移%d个账号到聚合容器%s。%s", len(toapp_), aql.GetName(), ql.GetName()))
-								}
+				for _, aql := range aggregated {
+					toapp := []qinglong.Env{}
+					for ql, envs := range memvs {
+						toapp_ := []qinglong.Env{}
+						if ql == aql {
+							continue
+						}
+						for _, env := range envs {
+							if !envContain(append(memvs[aql], toapp...), env) {
+								toapp = append(toapp, env)
+								toapp_ = append(toapp_, env)
 							}
 						}
-
+						if len(toapp_) > 0 {
+							memvs[aql] = append(memvs[aql], toapp_...)
+							if err := qinglong.AddEnv(aql, toapp_...); err != nil {
+								s.Reply(fmt.Sprintf("失败转移%d个账号到聚合容器%s：%v%s", len(toapp_), aql.GetName(), err, ql.GetTail()))
+							} else {
+								s.Reply(fmt.Sprintf("成功转移%d个账号到聚合容器%s。%s", len(toapp_), aql.GetName(), ql.GetTail()))
+							}
+						}
 					}
+
 				}
-				return "迁移完成。"
+
+				return "迁移任务结束。"
 			},
 		},
 	})
